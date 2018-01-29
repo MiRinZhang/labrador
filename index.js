@@ -21,6 +21,8 @@ const noPromiseMethods = {
   hideKeyboard: 1,
 };
 
+const wx = wx || my;
+
 const labrador = {
   // 原始wx对象
   wx,
