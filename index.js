@@ -21,11 +21,18 @@ const noPromiseMethods = {
   hideKeyboard: 1,
 };
 
-const wx = wx || my;
+let $applet = {};
+
+// 是否在支付宝小程序中
+if (typeof my === "undefined") {
+  $applet = wx;
+} else  {
+  $applet = my;
+}
 
 const labrador = {
-  // 原始wx对象
-  wx,
+  // 小程序原始对象
+  $applet,
   // getApp() 优雅的封装
   get app() {
     return getApp();
@@ -54,7 +61,7 @@ if (__DEV__) {
   });
 }
 
-Object.keys(wx).forEach((key) => {
+Object.keys($applet).forEach((key) => {
   if (
     noPromiseMethods[key]                        // 特别指定的方法
     || /^(on|create|stop|pause|close)/.test(key) // 以on* create* stop* pause* close* 开头的方法
@@ -63,7 +70,7 @@ Object.keys(wx).forEach((key) => {
     // 不进行Promise封装
     labrador[key] = function () {
       if (__DEV__) {
-        let res = wx[key].apply(wx, arguments);
+        let res = $applet[key].apply($applet, arguments);
         if (!res) {
           res = {};
         }
@@ -74,7 +81,7 @@ Object.keys(wx).forEach((key) => {
         }
         return res;
       }
-      return wx[key].apply(wx, arguments);
+      return $applet[key].apply($applet, arguments);
     };
     return;
   }
@@ -91,7 +98,7 @@ Object.keys(wx).forEach((key) => {
           reject(res);
         }
       };
-      wx[key](obj);
+      $applet[key](obj);
     });
   };
 });
