@@ -21,18 +21,23 @@ const noPromiseMethods = {
   hideKeyboard: 1,
 };
 
-let $applet = {};
+let $applet = {},
+    appletType = '';
 
 // 是否在支付宝小程序中
 if (typeof my === "undefined") {
   $applet = wx;
+  appletType = 'wx';
 } else  {
   $applet = my;
+  appletType = 'my';
 }
 
 const labrador = {
   // 小程序原始对象
   $applet,
+  // 小程序类型
+  appletType,
   // getApp() 优雅的封装
   get app() {
     return getApp();
