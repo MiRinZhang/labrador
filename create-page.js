@@ -56,7 +56,8 @@ module.exports = function createPage(ComponentClass: Class<Component>) {
     let handler: string = target.dataset['bind' + event.type]
       || target.dataset['catch' + event.type]
       || target.dataset[event.type]
-      || target.dataset['on' + firstUpper(event.type)]; // 支付宝小程序事件
+      || target.dataset['on' + firstUpper(event.type)]; // 支付宝小程序on事件
+      || target.dataset['catch' + firstUpper(event.type)]; // 支付宝小程序catch事件
     while (path) {
       let index = path.indexOf('.');
       let key = '';
