@@ -38,7 +38,7 @@ function buildListItem(list: Array<$DataMap>, item: $DataMap): $DataMap {
  * @returns {XML|string|void|*}
  */
 function firstUpper(str) {
-  return str.replace(/^\S/,(s) => (s || '').toUpperCase());
+  return str.replace(/^\S/,(s) => s.toUpperCase());
 }
 
 module.exports = function createPage(ComponentClass: Class<Component>) {
