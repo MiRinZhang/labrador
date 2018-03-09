@@ -38,7 +38,7 @@ function buildListItem(list: Array<$DataMap>, item: $DataMap): $DataMap {
  * @returns {XML|string|void|*}
  */
 function firstUpper(str) {
-  return str.replace(/^\S/,(s) => s.toUpperCase());
+  return str.replace(/^\S/,(s) => (s || '').toUpperCase());
 }
 
 module.exports = function createPage(ComponentClass: Class<Component>) {
@@ -56,7 +56,7 @@ module.exports = function createPage(ComponentClass: Class<Component>) {
     let handler: string = target.dataset['bind' + event.type]
       || target.dataset['catch' + event.type]
       || target.dataset[event.type]
-      || target.dataset['on' + firstUpper(event.type)]; // 支付宝小程序on事件
+      || target.dataset['on' + firstUpper(event.type)] // 支付宝小程序on事件
       || target.dataset['catch' + firstUpper(event.type)]; // 支付宝小程序catch事件
     while (path) {
       let index = path.indexOf('.');
