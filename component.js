@@ -13,6 +13,9 @@ import deepEqual from 'deep-equal';
 import _keyBy from 'lodash/keyBy';
 import * as utils from './utils';
 
+// applet type
+const appletType = typeof my === "undefined" ? 'wx' : 'my';
+
 /**
  * Labrador组件基类
  * @class Component
@@ -98,7 +101,7 @@ export default class Component {
       this._setStateCallbacks.push(callback);
     }
 
-    if (this._setStateTimer) return;
+    if (appletType !== 'wx' && this._setStateTimer) return;
 
     this._setStateTimer = setTimeout(() => {
       this._setStateTimer = 0;
@@ -236,7 +239,7 @@ export default class Component {
    * @private
    */
   _update() {
-    if (this._updateTimer) return;
+    if (appletType !== 'wx' && this._updateTimer) return;
     this._updateTimer = setTimeout(() => {
       this._updateTimer = 0;
 
